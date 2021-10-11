@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using TodoIt.Model;
 
-namespace ToDoIt.Tests
+namespace TodoIt.Tests
 {
     public class TodoItModelTests
     {
