@@ -1,6 +1,7 @@
 using System;
 using Xunit;
 using TodoIt.Model;
+using TodoIt.Data;
 
 namespace TodoIt.Tests
 {
@@ -155,6 +156,24 @@ namespace TodoIt.Tests
 	    if (success)
 		Assert.Equal(descriptionExpected, obj.Description);
 	}
+
+    }
+
+    public class TodoItDataTests
+    {
+	// Class PersonSequencer Tests:
+	[Fact]
+	public void ClassPersonSequencer_Tests()
+	{
+	    // Arrange
+	    // Act
+	    PersonSequencer.reset();				    // Set PersonId to 0
+
+	    int personId = PersonSequencer.nextPersonId();          // Increment PersonId
+
+	    // Assert
+	    Assert.Equal(1, personId);
+        }
 
     }
 }
