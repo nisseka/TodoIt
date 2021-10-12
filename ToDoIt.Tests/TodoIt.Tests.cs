@@ -5,6 +5,8 @@ using TodoIt.Data;
 
 namespace TodoIt.Tests
 {
+
+// TodoIt.Model Tests:
     public class TodoItModelTests
     {
 
@@ -159,6 +161,7 @@ namespace TodoIt.Tests
 
     }
 
+// TodoIt.Data Tests:
     public class TodoItDataTests
     {
 	// Class PersonSequencer Tests:
@@ -175,5 +178,18 @@ namespace TodoIt.Tests
 	    Assert.Equal(1, personId);
         }
 
+	// Class TodoSequencer Tests:
+	[Fact]
+	public void ClassTodoSequencer_Tests()
+	{
+	    // Arrange
+	    // Act
+	    TodoSequencer.reset();                                // Set todoId to 0
+
+	    int personId = TodoSequencer.nextTodoId();              // Increment todoId
+
+	    // Assert
+	    Assert.Equal(1, personId);
+	}
     }
 }

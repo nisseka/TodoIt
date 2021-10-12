@@ -4,44 +4,44 @@ using System.Text;
 
 namespace TodoIt.Data
 {
-    public class PersonSequencer
+    public class TodoSequencer
     {
-	private static int personId;
+	private static int todoId;
 
 /*
     * Method: constructor 
     *
     * static constructor
-    * sets personId to 0
+    * sets global variable todoId to 0
 */
-	static PersonSequencer()
+	static TodoSequencer()
 	{
-	    personId = 0;
+	    todoId = 0;
 	}
 
 /*
     * Method: nextTodoId 
     *
-    * increments personId with 1
+    * increments todoId with 1
     * 
-    * returns: personId
+    * returns: todoId
 */
-	public static int nextPersonId()
+	public static int nextTodoId()
 	{
-	    personId++;
+	    todoId++;
 
-	    return personId;
+	    return todoId;
 	}
 
 /*
     * Method: reset 
     *
-    * sets personId to 0
+    * sets todoId to 0
     * 
 */
 	public static void reset()
 	{
-	    personId = 0;
+	    todoId = 0;
 	}
     }
 }
