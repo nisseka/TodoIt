@@ -1,5 +1,13 @@
 ﻿using System;
 
+/*
+ *  Assignment #4, TodoIt
+ *  
+ *  by
+ *  
+ *  Stefan Sundbeck
+*/
+
 namespace TodoIt
 {
     class Program
