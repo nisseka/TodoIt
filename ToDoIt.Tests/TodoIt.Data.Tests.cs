@@ -7,7 +7,7 @@ namespace TodoIt.Data.Tests
     // TodoIt.Data Tests:
     public class TodoItDataTests
     {
-	// Class PersonSequencer Tests:
+// Class PersonSequencer Tests:
 	[Fact]
 	public void ClassPersonSequencer_Tests()
 	{
@@ -21,7 +21,7 @@ namespace TodoIt.Data.Tests
 	    Assert.Equal(1, personId);
 	}
 
-	// Class TodoSequencer Tests:
+// Class TodoSequencer Tests:
 	[Fact]
 	public void ClassTodoSequencer_Tests()
 	{
@@ -35,7 +35,7 @@ namespace TodoIt.Data.Tests
 	    Assert.Equal(1, personId);
 	}
 
-	// Class People Tests:
+// Class People Tests:
 	[Fact]
 	public void ClassPeople_ConstructorTest()
 	{
@@ -131,5 +131,104 @@ namespace TodoIt.Data.Tests
 	    Assert.NotNull(personsArray);
 	    Assert.Equal(personObj, personsArray[0]);
 	}
+
+// Class Todo Tests:
+	[Fact]
+	public void ClassTodo_ConstructorTest()
+	{
+	    // Arrange
+	    TodoItems obj = new TodoItems();
+
+	    Assert.NotNull(obj);
+
+	    // Assert
+	    Assert.Equal(0, obj.Size());
+	}
+
+	[Fact]
+	public void ClassTodo_AddTest()
+	{
+	    // Arrange
+	    TodoItems todoitemsObj = new TodoItems();
+	    Person personObj1 = new Person();
+
+	    Assert.NotNull(todoitemsObj);
+
+	    // Act
+	    Todo todoObj = todoitemsObj.Add("Test",true,personObj1);
+
+	    // Assert
+	    Assert.Equal("Test", todoObj.Description);
+	    Assert.True(todoObj.Done);
+	    Assert.Equal(personObj1, todoObj.Assignee);
+	    Assert.Equal(1, todoitemsObj.Size());
+	}
+
+	[Fact]
+	public void ClassTodo_ClearTest()
+	{
+	    // Arrange
+	    TodoItems obj = new TodoItems();
+
+	    Assert.NotNull(obj);
+
+	    // Act
+	    obj.Clear();
+
+	    // Assert
+	    Assert.Equal(0, obj.Size());
+	}
+	[Fact]
+	public void ClassTodo_SizeTest()
+	{
+	    // Arrange
+	    TodoItems obj = new TodoItems();
+
+	    Assert.NotNull(obj);
+
+	    obj.Add("Test");
+
+	    // Act
+	    int size = obj.Size();
+
+	    // Assert
+	    Assert.Equal(1, size);
+	}
+	[Fact]
+	public void ClassTodo_FindByIdTest()
+	{
+	    // Arrange
+	    TodoItems todoitemsObj = new TodoItems();
+
+	    Assert.NotNull(todoitemsObj);
+
+	    todoitemsObj.Add("Test");
+	    Todo todoObj1 = todoitemsObj.Add("Olle");
+
+	    // Act
+	    Todo foundObj = todoitemsObj.FindById(todoObj1.TodoId);
+
+	    // Assert
+	    Assert.NotNull(foundObj);
+	    Assert.Equal(todoObj1.TodoId, foundObj.TodoId);
+	}
+	[Fact]
+	public void ClassTodo_FindAllTest()
+	{
+	    // Arrange
+	    TodoItems todoitemsObj = new TodoItems();
+
+	    Assert.NotNull(todoitemsObj);
+
+	    Todo todoObj = todoitemsObj.Add("Test");
+
+	    // Act
+	    Todo[] todoitemssArray = todoitemsObj.FindAll();
+
+	    // Assert
+	    Assert.NotNull(todoitemssArray);
+	    Assert.Equal(todoObj, todoitemssArray[0]);
+	}
+
     }
 }
