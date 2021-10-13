@@ -132,9 +132,9 @@ namespace TodoIt.Data.Tests
 	    Assert.Equal(personObj, personsArray[0]);
 	}
 
-// Class Todo Tests:
+// Class TodoItems Tests:
 	[Fact]
-	public void ClassTodo_ConstructorTest()
+	public void ClassTodoItems_ConstructorTest()
 	{
 	    // Arrange
 	    TodoItems obj = new TodoItems();
@@ -146,7 +146,7 @@ namespace TodoIt.Data.Tests
 	}
 
 	[Fact]
-	public void ClassTodo_AddTest()
+	public void ClassTodoItems_AddTest()
 	{
 	    // Arrange
 	    TodoItems todoitemsObj = new TodoItems();
@@ -165,7 +165,7 @@ namespace TodoIt.Data.Tests
 	}
 
 	[Fact]
-	public void ClassTodo_ClearTest()
+	public void ClassTodoItems_ClearTest()
 	{
 	    // Arrange
 	    TodoItems obj = new TodoItems();
@@ -179,7 +179,7 @@ namespace TodoIt.Data.Tests
 	    Assert.Equal(0, obj.Size());
 	}
 	[Fact]
-	public void ClassTodo_SizeTest()
+	public void ClassTodoItems_SizeTest()
 	{
 	    // Arrange
 	    TodoItems obj = new TodoItems();
@@ -195,7 +195,7 @@ namespace TodoIt.Data.Tests
 	    Assert.Equal(1, size);
 	}
 	[Fact]
-	public void ClassTodo_FindByIdTest()
+	public void ClassTodoItems_FindByIdTest()
 	{
 	    // Arrange
 	    TodoItems todoitemsObj = new TodoItems();
@@ -213,7 +213,7 @@ namespace TodoIt.Data.Tests
 	    Assert.Equal(todoObj1.TodoId, foundObj.TodoId);
 	}
 	[Fact]
-	public void ClassTodo_FindAllTest()
+	public void ClassTodoItems_FindAllTest()
 	{
 	    // Arrange
 	    TodoItems todoitemsObj = new TodoItems();
