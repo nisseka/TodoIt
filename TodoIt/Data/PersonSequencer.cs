@@ -20,7 +20,7 @@ namespace TodoIt.Data
 	}
 
 /*
-    * Method: nextTodoId 
+    * Method: nextPersonId
     *
     * increments personId with 1
     * 

@@ -1,21 +1,20 @@
 using System;
 using Xunit;
-using TodoIt.Model;
-using TodoIt.Data;
 
-namespace TodoIt.Tests
+namespace TodoIt.Model.Tests
 {
-
-// TodoIt.Model Tests:
+    // TodoIt.Model Tests:
     public class TodoItModelTests
     {
-
 	// Class Person Tests:
 	[Fact]
 	public void ClassPerson_ConstructorTest()
 	{
+	    // Arrange
+	    // Act
 	    Person obj = new Person();
 
+	    // Assert
 	    Assert.NotNull(obj);
 	    Assert.Equal("", obj.FirstName);
 	    Assert.Equal("", obj.LastName);
@@ -124,7 +123,7 @@ namespace TodoIt.Tests
 	    Assert.NotNull(obj);
 
 	    obj.Done = true;
-	    obj.Assignee = person; 
+	    obj.Assignee = person;
 
 	    // Assert
 	    Assert.True(obj.Done);
@@ -157,39 +156,6 @@ namespace TodoIt.Tests
 	    Assert.Equal(expectedSuccess, success);
 	    if (success)
 		Assert.Equal(descriptionExpected, obj.Description);
-	}
-
-    }
-
-// TodoIt.Data Tests:
-    public class TodoItDataTests
-    {
-	// Class PersonSequencer Tests:
-	[Fact]
-	public void ClassPersonSequencer_Tests()
-	{
-	    // Arrange
-	    // Act
-	    PersonSequencer.reset();				    // Set PersonId to 0
-
-	    int personId = PersonSequencer.nextPersonId();          // Increment PersonId
-
-	    // Assert
-	    Assert.Equal(1, personId);
-        }
-
-	// Class TodoSequencer Tests:
-	[Fact]
-	public void ClassTodoSequencer_Tests()
-	{
-	    // Arrange
-	    // Act
-	    TodoSequencer.reset();                                // Set todoId to 0
-
-	    int personId = TodoSequencer.nextTodoId();              // Increment todoId
-
-	    // Assert
-	    Assert.Equal(1, personId);
 	}
     }
 }
