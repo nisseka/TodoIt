@@ -36,12 +36,12 @@ namespace TodoIt.Model
 	    get => lastName;
 	    set
 	    {
-		if (value == null)
+		if (value == null)              // Check for null assignment
 		{
 		    throw new ArgumentNullException("LastName", "property LastName cannot be assigned a null value!");
 		}
 
-		if (value.Length == 0)
+		if (value.Length == 0)          // Check for an emtpy string
 		{
 		    throw new ArgumentException("property LastName cannot be assigned an empty string!", "LastName");
 		}
@@ -52,9 +52,9 @@ namespace TodoIt.Model
 /*
     * Method: constructor 
     *
-    * default constructor
-    * initializes class elements 
-*/
+    * initializes class elements & sets field personId to supplied parameter personId
+    * 
+ */
 	public Person(int personId = 0)
 	{
 	    this.personId = personId;

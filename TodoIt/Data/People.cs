@@ -131,14 +131,14 @@ namespace TodoIt.Data
 	    personsArray = newPersonsArray;                     // Use the new array
 	}
 
-	/*
-	    * Method: Remove 
-	    * 
-	    * Removes an object from the array of objects
-	    *
-	    * returns:	true	object found & removed
-	    *		false	object not found in the	array of objects	
-	*/
+/*
+    * Method: Remove 
+    * 
+    * Removes an object from the array of objects
+    *
+    * returns:	true	object found & removed
+    *		false	object not found in the	array of objects	
+*/
 	public bool Remove(Person personObject)
 	{
 	    bool removed = false;
