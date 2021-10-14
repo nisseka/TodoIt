@@ -153,6 +153,7 @@ namespace TodoIt.Data.Tests
 	    Person personObj1 = new Person();
 
 	    Assert.NotNull(todoitemsObj);
+	    Assert.NotNull(personObj1);
 
 	    // Act
 	    Todo todoObj = todoitemsObj.Add("Test",true,personObj1);
@@ -223,12 +224,123 @@ namespace TodoIt.Data.Tests
 	    Todo todoObj = todoitemsObj.Add("Test");
 
 	    // Act
-	    Todo[] todoitemssArray = todoitemsObj.FindAll();
+	    Todo[] todoitemsArray = todoitemsObj.FindAll();
 
 	    // Assert
-	    Assert.NotNull(todoitemssArray);
-	    Assert.Equal(todoObj, todoitemssArray[0]);
+	    Assert.NotNull(todoitemsArray);
+	    Assert.Equal(todoObj, todoitemsArray[0]);
 	}
 
+	[Fact]
+	public void ClassTodoItems_FindByDoneStatusTest()
+	{
+	    // Arrange
+	    TodoItems todoitemsObj = new TodoItems();
+
+	    Assert.NotNull(todoitemsObj);
+
+	    todoitemsObj.Add("Test");		// Add test objects
+	    todoitemsObj.Add("Test2",true);
+	    todoitemsObj.Add("Test3",false);
+	    todoitemsObj.Add("Test4",true);
+	    todoitemsObj.Add("Test5",true);
+
+	    // Act
+	    Todo[] todoitemsArray = todoitemsObj.FindByDoneStatus(true);
+
+	    // Assert
+	    Assert.NotNull(todoitemsArray);
+
+	    foreach (var item in todoitemsArray)
+	    {
+		Assert.True(item.Done);
+	    }
+	}
+
+	[Fact]
+	public void ClassTodoItems_FindUnassignedTodoItemsTest()
+	{
+	    // Arrange
+	    TodoItems todoitemsObj = new TodoItems();
+	    Person personObj1 = new Person();
+
+	    Assert.NotNull(todoitemsObj);
+	    Assert.NotNull(personObj1);
+
+	    todoitemsObj.Add("Test");           // Add test objects
+	    todoitemsObj.Add("Test2", true,personObj1);
+	    todoitemsObj.Add("Test3", false);
+	    todoitemsObj.Add("Test4", true);
+
+	    // Act
+	    Todo[] todoitemsArray = todoitemsObj.FindUnassignedTodoItems();
+
+	    // Assert
+	    Assert.NotNull(todoitemsArray);
+
+	    foreach (var item in todoitemsArray)
+	    {
+		Assert.Null(item.Assignee);
+	    }
+	}
+
+	[Fact]
+	public void ClassTodoItems_FindByAssigneeTest()
+	{
+	    // Arrange
+	    TodoItems todoitemsObj = new TodoItems();
+	    Person personObj1 = new Person();
+
+	    Assert.NotNull(todoitemsObj);
+	    Assert.NotNull(personObj1);
+
+	    todoitemsObj.Add("Test");           // Add test objects
+	    todoitemsObj.Add("Test2", true, personObj1);
+	    todoitemsObj.Add("Test3", false);
+	    todoitemsObj.Add("Test4", true);
+
+	    // Act
+	    Todo[] todoitemsArray = todoitemsObj.FindByAssignee(personObj1);
+
+	    // Assert
+	    Assert.NotNull(todoitemsArray);
+
+	    foreach (var item in todoitemsArray)
+	    {
+		Assert.Equal(personObj1, item.Assignee);
+	    }
+	}
+
+	[Fact]
+	public void ClassTodoItems_FindByAssigneePersonIdTest()
+	{
+	    // Arrange
+	    TodoItems todoitemsObj = new TodoItems();
+	    People  peopleObj = new People();
+	    Person  personObj1;
+
+	    Assert.NotNull(todoitemsObj);
+	    Assert.NotNull(peopleObj);
+
+	    personObj1 = peopleObj.Add("Olle", "Nilsson");
+	    Assert.NotNull(peopleObj);
+
+	    todoitemsObj.Add("Test");			     // Add test objects
+	    todoitemsObj.Add("Test2", true, personObj1);
+	    todoitemsObj.Add("Test3", false);
+	    todoitemsObj.Add("Test4", true);
+
+	    // Act
+	    Todo[] todoitemsArray = todoitemsObj.FindByAssignee(personObj1.PersonId);
+
+	    // Assert
+	    Assert.NotNull(todoitemsArray);
+
+	    foreach (var item in todoitemsArray)
+	    {
+		Assert.NotNull(item.Assignee);
+		Assert.Equal(personObj1.PersonId, item.Assignee.PersonId);
+	    }
+	}
     }
 }

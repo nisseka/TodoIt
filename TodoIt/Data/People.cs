@@ -60,6 +60,7 @@ namespace TodoIt.Data
 		if (item.PersonId == personId)
 		{
 		    personObj = item;
+		    break;
 		}
 	    }
 	    return personObj;

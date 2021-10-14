@@ -59,6 +59,7 @@ namespace TodoIt.Data
 		if (item.TodoId == todoID)
 		{
 		    todoObj = item;
+		    break;
 		}
 	    }
 	    return todoObj;
@@ -104,6 +105,129 @@ namespace TodoIt.Data
 	public void Clear()
 	{
 	    todoitemsArray = new Todo[0];
+	}
+
+/*
+    * Method: FindByDoneStatus 
+    * 
+    * Searches for objects that has a matching done status
+    * 
+    * returns: an array of those objects
+    *
+*/
+	public Todo[] FindByDoneStatus(bool doneStatus)
+	{
+	    int i,count = 0;
+	    Todo[] array;
+
+	    foreach (var item in todoitemsArray)		// Search for matching objects to determine the number of objects needed in the new array
+	    {
+		if (item.Done == doneStatus)
+		{
+		    count++;
+		}
+	    }
+
+	    array = new Todo[count];
+	    if (count > 0)
+	    {
+		i = 0;
+		foreach (var item in todoitemsArray)                // Create & fill an array of those objects
+		{
+		    if (item.Done == doneStatus)
+		    {
+			array[i] = item;
+			i++;
+		    }
+		}
+	    }
+	    return array;
+	}
+
+/*
+    * Method: FindByAssignee(Person assignee) 
+    * 
+    * Searches for objects that has a matching assignee
+    * 
+    * returns: an array of those objects
+    *
+*/
+	public Todo[] FindByAssignee(Person assignee)
+	{
+	    int i, count = 0;
+	    Todo[] array;
+
+	    foreach (var item in todoitemsArray)                // Search for matching objects to determine the number of objects needed in the new array
+	    {
+		if (item.Assignee == assignee)
+		{
+		    count++;
+		}
+	    }
+
+	    array = new Todo[count];
+	    if (count > 0)
+	    {
+		i = 0;
+		foreach (var item in todoitemsArray)                // Create & fill an array of those objects
+		{
+		    if (item.Assignee == assignee)
+		    {
+			array[i] = item;
+			i++;
+		    }
+		}
+	    }
+	    return array;
+	}
+/*
+    * Method: FindUnassignedTodoItems 
+    * 
+    * Searches for objects that does not have an assignee set
+    * 
+    * returns: an array of those objects
+    *
+*/
+	public Todo[] FindUnassignedTodoItems()
+	{
+	    return FindByAssignee(null);
+	}
+
+/*
+    * Method: FindByAssignee(int personId) 
+    * 
+    * Searches for objects that has a matching assignee personId
+    * 
+    * returns: an array of those objects
+    *
+*/
+	public Todo[] FindByAssignee(int personId)
+	{
+	    int i, count = 0;
+	    Todo[] array;
+
+	    foreach (var item in todoitemsArray)                // Search for matching objects to determine the number of objects needed in the new array
+	    {
+		if (item.Assignee != null && item.Assignee.PersonId == personId)
+		{
+		    count++;
+		}
+	    }
+
+	    array = new Todo[count];
+	    if (count > 0)
+	    {
+		i = 0;
+		foreach (var item in todoitemsArray)                // Create & fill an array of those objects
+		{
+		    if (item.Assignee != null && item.Assignee.PersonId == personId)
+		    {
+			array[i] = item;
+			i++;
+		    }
+		}
+	    }
+	    return array;
 	}
     }
 }
