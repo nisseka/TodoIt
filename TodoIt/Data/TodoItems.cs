@@ -97,6 +97,71 @@ namespace TodoIt.Data
 	}
 
 /*
+    * Method: Delete 
+    * 
+    * Deletes the object at position index from the array of objects
+    *
+*/
+	public void Delete(int index)
+	{
+	    Todo[]  newTodoitemsArray;
+	    int i;
+	    int count = Size();
+
+	    if (index < 0 || index >= count)
+	    {
+		throw new IndexOutOfRangeException($"index ({index}) is out of range! Valid range is 0 to {count-1}");
+	    }
+
+	    int newcount = count - 1;
+
+	    newTodoitemsArray = new Todo[newcount];                 // Create a new array
+
+	    for (i = 0; i < index; i++)				    // Copy the objects before index to the new array
+	    {
+		newTodoitemsArray[i] = todoitemsArray[i];
+	    }
+
+	    for (i = index; i < newcount; i++)                      // Copy the objects after index to the new array
+	    {
+		newTodoitemsArray[i] = todoitemsArray[i + 1];
+	    }
+
+	    todoitemsArray = newTodoitemsArray;                     // Use the new array
+	}
+
+/*
+    * Method: Remove 
+    * 
+    * Removes an object from the array of objects
+    *
+    * returns:	true	object found & removed
+    *		false	object not found in the	array of objects	
+*/
+	public bool Remove(Todo todoObject)
+	{
+	    bool removed = false;
+	    int index = 0;
+
+	    foreach (var item in todoitemsArray)                    // Search for todoObject in the array of objects
+	    {
+		if (item == todoObject)
+		{
+		    break;
+		}
+		index++;
+	    }
+
+	    if (index < Size())
+	    {                                                       // todoObject found in the array of objects
+		Delete(index);					    // Delete it 
+		removed = true;
+	    }
+
+	    return removed;
+	}
+
+/*
     * Method: Clear 
     * 
     * Clears the todoitems Array
@@ -120,7 +185,7 @@ namespace TodoIt.Data
 	    int i,count = 0;
 	    Todo[] array;
 
-	    foreach (var item in todoitemsArray)		// Search for matching objects to determine the number of objects needed in the new array
+	    foreach (var item in todoitemsArray)		    // Search for matching objects to determine the number of objects needed in the new array
 	    {
 		if (item.Done == doneStatus)
 		{
@@ -229,5 +294,6 @@ namespace TodoIt.Data
 	    }
 	    return array;
 	}
+
     }
 }

@@ -4,7 +4,7 @@ using Xunit;
 
 namespace TodoIt.Data.Tests
 {
-    // TodoIt.Data Tests:
+// TodoIt.Data Tests:
     public class TodoItDataTests
     {
 // Class PersonSequencer Tests:
@@ -132,6 +132,81 @@ namespace TodoIt.Data.Tests
 	    Assert.Equal(personObj, personsArray[0]);
 	}
 
+	[Fact]
+	public void ClassPeople_RemoveTest()
+	{
+	    // Arrange
+	    People peopleObj = new People();
+	    Person[] personsArray;
+	    Person personObj;
+
+	    Assert.NotNull(peopleObj);
+
+	    peopleObj.Add("Olle", "Nilsson");                        // Add test objects
+	    peopleObj.Add("Kalle", "Karlsson");
+	    personObj = peopleObj.Add("Nisse", "Persson");
+	    peopleObj.Add("Olle", "Fast");
+
+	    // Act
+	    bool removed = peopleObj.Remove(personObj);
+
+	    personsArray = peopleObj.FindAll();
+
+	    // Assert
+	    Assert.True(removed);
+
+	    Assert.False(peopleObj.Remove(null));		// Test with removing a non-existing object
+
+	    // Make surce that the object is really removed from the array of objects
+	    bool found = false;
+	    foreach (var item in personsArray)			// Search for todoObj in the array of objects
+	    {
+		if (item == personObj)
+		{
+		    found = true;
+		}
+	    }
+
+	    Assert.False(found);
+	}
+
+	[Theory]
+	[InlineData(0, true)]                                     // Test delete the first object
+	[InlineData(1, true)]                                     // Test delete the 2nd object
+	[InlineData(3, true)]                                     // Test delete the last object
+	[InlineData(-1, false)]                                   // Test delete with index out of bounds
+	[InlineData(56, false)]                                   // Test delete with index out of bounds
+	public void ClassPeople_DeleteTest(int itemIndex, bool expectedSuccess)
+	{
+	    bool success;
+	    // Arrange
+	    People peopleObj = new People();
+
+	    Assert.NotNull(peopleObj);
+
+	    peopleObj.Add("Olle", "Nilsson");                        // Add test objects
+	    peopleObj.Add("Kalle", "Karlsson");
+	    peopleObj.Add("Nisse", "Persson");
+	    peopleObj.Add("Olle", "Fast");
+
+	    // Act
+	    try
+	    {
+		peopleObj.Delete(itemIndex);
+		success = true;
+	    }
+	    catch (IndexOutOfRangeException e) when (e.Message.IndexOf("out of range") >= 0)
+	    {
+		success = false;
+	    }
+	    // Assert
+
+	    Assert.Equal(expectedSuccess, success);
+	    if (success)
+		Assert.Equal(3, peopleObj.Size());           // Size of the array should be 3
+	}
+
+
 // Class TodoItems Tests:
 	[Fact]
 	public void ClassTodoItems_ConstructorTest()
@@ -156,7 +231,7 @@ namespace TodoIt.Data.Tests
 	    Assert.NotNull(personObj1);
 
 	    // Act
-	    Todo todoObj = todoitemsObj.Add("Test",true,personObj1);
+	    Todo todoObj = todoitemsObj.Add("Test", true, personObj1);
 
 	    // Assert
 	    Assert.Equal("Test", todoObj.Description);
@@ -239,11 +314,11 @@ namespace TodoIt.Data.Tests
 
 	    Assert.NotNull(todoitemsObj);
 
-	    todoitemsObj.Add("Test");		// Add test objects
-	    todoitemsObj.Add("Test2",true);
-	    todoitemsObj.Add("Test3",false);
-	    todoitemsObj.Add("Test4",true);
-	    todoitemsObj.Add("Test5",true);
+	    todoitemsObj.Add("Test");           // Add test objects
+	    todoitemsObj.Add("Test2", true);
+	    todoitemsObj.Add("Test3", false);
+	    todoitemsObj.Add("Test4", true);
+	    todoitemsObj.Add("Test5", true);
 
 	    // Act
 	    Todo[] todoitemsArray = todoitemsObj.FindByDoneStatus(true);
@@ -268,7 +343,7 @@ namespace TodoIt.Data.Tests
 	    Assert.NotNull(personObj1);
 
 	    todoitemsObj.Add("Test");           // Add test objects
-	    todoitemsObj.Add("Test2", true,personObj1);
+	    todoitemsObj.Add("Test2", true, personObj1);
 	    todoitemsObj.Add("Test3", false);
 	    todoitemsObj.Add("Test4", true);
 
@@ -316,8 +391,8 @@ namespace TodoIt.Data.Tests
 	{
 	    // Arrange
 	    TodoItems todoitemsObj = new TodoItems();
-	    People  peopleObj = new People();
-	    Person  personObj1;
+	    People peopleObj = new People();
+	    Person personObj1;
 
 	    Assert.NotNull(todoitemsObj);
 	    Assert.NotNull(peopleObj);
@@ -325,7 +400,7 @@ namespace TodoIt.Data.Tests
 	    personObj1 = peopleObj.Add("Olle", "Nilsson");
 	    Assert.NotNull(peopleObj);
 
-	    todoitemsObj.Add("Test");			     // Add test objects
+	    todoitemsObj.Add("Test");                        // Add test objects
 	    todoitemsObj.Add("Test2", true, personObj1);
 	    todoitemsObj.Add("Test3", false);
 	    todoitemsObj.Add("Test4", true);
@@ -341,6 +416,80 @@ namespace TodoIt.Data.Tests
 		Assert.NotNull(item.Assignee);
 		Assert.Equal(personObj1.PersonId, item.Assignee.PersonId);
 	    }
+	}
+
+	[Fact]
+	public void ClassTodoItems_RemoveTest()
+	{
+	    // Arrange
+	    TodoItems todoitemsObj = new TodoItems();
+	    Todo[] todoitemsArray;
+	    Todo todoObj;
+
+	    Assert.NotNull(todoitemsObj);
+
+	    todoitemsObj.Add("Test");                        // Add test objects
+	    todoitemsObj.Add("Test2", true);
+	    todoObj = todoitemsObj.Add("Test3", false);
+	    todoitemsObj.Add("Test4", true);
+
+	    // Act
+	    bool removed = todoitemsObj.Remove(todoObj);
+
+	    todoitemsArray = todoitemsObj.FindAll();
+
+	    // Assert
+	    Assert.True(removed);
+
+	    Assert.False(todoitemsObj.Remove(null));        // Test with removing a non-existing object
+
+	    // Make surce that the object is really removed from the array of objects
+	    bool found = false;
+	    foreach (var item in todoitemsArray)            // Search for todoObj in the array of objects
+	    {
+		if (item == todoObj)
+		{
+		    found = true;
+		}
+	    }
+
+	    Assert.False(found);
+	}
+
+	[Theory]
+	[InlineData(0, true)]                                     // Test delete the first object
+	[InlineData(1, true)]                                     // Test delete the 2nd object
+	[InlineData(3, true)]                                     // Test delete the last object
+	[InlineData(-1, false)]					  // Test delete with index out of bounds
+	[InlineData(56, false)]                                   // Test delete with index out of bounds
+	public void ClassTodoItems_DeleteTest(int itemIndex, bool expectedSuccess)
+	{
+	    bool success;
+	    // Arrange
+	    TodoItems todoitemsObj = new TodoItems();
+
+	    Assert.NotNull(todoitemsObj);
+
+	    todoitemsObj.Add("Test1");                        // Add test objects
+	    todoitemsObj.Add("Test2", true);
+	    todoitemsObj.Add("Test3", false);
+	    todoitemsObj.Add("Test4", true);
+
+	    // Act
+	    try
+	    {
+		todoitemsObj.Delete(itemIndex);
+		success = true;
+	    }
+	    catch (IndexOutOfRangeException e) when (e.Message.IndexOf("out of range") >= 0)
+	    {
+		success = false;
+	    }
+	    // Assert
+
+	    Assert.Equal(expectedSuccess, success);
+	    if (success)
+		Assert.Equal(3, todoitemsObj.Size());           // Size of the array should be 3
 	}
     }
 }

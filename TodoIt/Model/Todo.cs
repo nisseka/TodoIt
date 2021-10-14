@@ -38,7 +38,7 @@ namespace TodoIt.Model
 	{
 	    assignee = null;
 	    done = false;
-	    todoId=0;
+	    todoId = 0;
 	    description = "";
 	}
 
@@ -54,6 +54,5 @@ namespace TodoIt.Model
 	    this.description = description;
 	}
     }
-}
-    
 
+}

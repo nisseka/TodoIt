@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TodoIt.Data;
 using TodoIt.Model;
-
 
 namespace TodoIt.Data
 {
@@ -98,11 +98,76 @@ namespace TodoIt.Data
 	}
 
 /*
-    * Method: Clear 
+    * Method: Delete 
     * 
-    * Clears the persons Array
+    * Deletes the object at position index from the array of objects
     *
 */
+	public void Delete(int index)
+	{
+	    Person[] newPersonsArray;
+	    int i;
+	    int count = Size();
+
+	    if (index < 0 || index >= count)
+	    {
+		throw new IndexOutOfRangeException($"index ({index}) is out of range! Valid range is 0 to {count - 1}");
+	    }
+
+	    int newcount = count - 1;
+
+	    newPersonsArray = new Person[newcount];                 // Create a new array
+
+	    for (i = 0; i < index; i++)                             // Copy the objects before index to the new array
+	    {
+		newPersonsArray[i] = personsArray[i];
+	    }
+
+	    for (i = index; i < newcount; i++)                      // Copy the objects after index to the new array
+	    {
+		newPersonsArray[i] = personsArray[i + 1];
+	    }
+
+	    personsArray = newPersonsArray;                     // Use the new array
+	}
+
+	/*
+	    * Method: Remove 
+	    * 
+	    * Removes an object from the array of objects
+	    *
+	    * returns:	true	object found & removed
+	    *		false	object not found in the	array of objects	
+	*/
+	public bool Remove(Person personObject)
+	{
+	    bool removed = false;
+	    int index = 0;
+
+	    foreach (var item in personsArray)                    // Search for personObject in the array of objects
+	    {
+		if (item == personObject)
+		{
+		    break;
+		}
+		index++;
+	    }
+
+	    if (index < Size())
+	    {                                                       // personObject found in the array of objects
+		Delete(index);                                      // Delete it 
+		removed = true;
+	    }
+
+	    return removed;
+	}
+
+	/*
+	    * Method: Clear 
+	    * 
+	    * Clears the persons Array
+	    *
+	*/
 	public void Clear()
 	{
 	    personsArray = new Person[0];

@@ -3,10 +3,10 @@ using Xunit;
 
 namespace TodoIt.Model.Tests
 {
-    // TodoIt.Model Tests:
+// TodoIt.Model Tests:
     public class TodoItModelTests
     {
-	// Class Person Tests:
+// Class Person Tests:
 	[Fact]
 	public void ClassPerson_ConstructorTest()
 	{
@@ -87,7 +87,7 @@ namespace TodoIt.Model.Tests
 		Assert.Equal(nameExpected, obj.LastName);
 	}
 
-	// Class Todo Tests:
+// Class Todo Tests:
 	[Fact]
 	public void ClassTodo_ConstructorTest()
 	{
